@@ -9,7 +9,7 @@ import (
 
 func main() {
 	log.Printf("🏁 Starting c3-node-proxy application...")
-	
+
 	server, err := NewProxyServer()
 	if err != nil {
 		log.Fatalf("❌ Failed to initialize server: %v", err)
