@@ -45,8 +45,10 @@ func NewProxyServer() (*ProxyServer, error) {
 }
 
 func (p *ProxyServer) Start() {
+	p.logger.Info("📋 Registering HTTP handler for /")
 	http.HandleFunc("/", p.ProxyHandler)
 	p.logger.Info("🚀 Starting proxy server on :8080")
+	
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		p.logger.Error("Failed to start server: %v", err)
 		os.Exit(1)

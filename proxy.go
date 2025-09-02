@@ -93,7 +93,10 @@ func (p *ProxyServer) HandleProxyRequest(w http.ResponseWriter, r *http.Request,
 
 // ProxyHandler handles all incoming HTTP requests
 func (p *ProxyServer) ProxyHandler(w http.ResponseWriter, r *http.Request) {
+	p.logger.Debug("🌐 Incoming request: %s %s", r.Method, r.URL.Path)
+	
 	if r.URL.Path == "/" && r.Method == "GET" {
+		p.logger.Debug("💚 Health check request - returning healthy status")
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(map[string]string{
 			"status": "healthy",

@@ -8,10 +8,14 @@ import (
 )
 
 func main() {
+	log.Printf("🏁 Starting c3-node-proxy application...")
+	
 	server, err := NewProxyServer()
 	if err != nil {
 		log.Fatalf("❌ Failed to initialize server: %v", err)
 	}
+
+	log.Printf("✅ Server initialized successfully")
 
 	// Handle graceful shutdown
 	c := make(chan os.Signal, 1)
@@ -23,5 +27,6 @@ func main() {
 		os.Exit(0)
 	}()
 
+	log.Printf("🚀 About to call server.Start()...")
 	server.Start()
 }
