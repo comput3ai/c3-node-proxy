@@ -100,7 +100,14 @@ func (p *ProxyServer) DumpInFlightRequests() {
 }
 
 func copyHeader(dst, src http.Header) {
+	stripOrigin := os.Getenv("STRIP_ORIGIN") == "true"
+
 	for k, vv := range src {
+		// Skip Origin header if STRIP_ORIGIN is true
+		if stripOrigin && k == "Origin" {
+			continue
+		}
+
 		for _, v := range vv {
 			dst.Add(k, v)
 		}
